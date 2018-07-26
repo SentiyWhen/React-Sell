@@ -20,7 +20,8 @@ import {
 
 class Header extends Component {
   getListArea() {
-    if (this.props.focused) {
+    const { focused, list } = this.props;
+    if (focused) {
       return <SearchInfo>
                 <SearchInfoTitle>
                   热门搜索
@@ -28,7 +29,7 @@ class Header extends Component {
                 </SearchInfoTitle>
                 <SearchInfoList>
                   {
-                    this.props.list.map((item)=>{
+                    list.map((item)=>{
                       return <SearchInfoItem key={item}>{item}</SearchInfoItem>
                     })
                   }
