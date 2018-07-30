@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import Topic from './components/Topic';
 import List from './components/List';
 import Recommend from './components/Recommend';
