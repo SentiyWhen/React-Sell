@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group'
 import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
 import {
   HeaderWrapper, 
   Logo, 
@@ -57,7 +58,7 @@ class Header extends Component {
     }
   }
   render() {
-    const { focused, list, handleInputFocus, handleInputBlur } = this.props;
+    const { focused, list, handleInputFocus, handleInputBlur, login, logout } = this.props;
     return (
       <HeaderWrapper>
         <Link to='/'>
@@ -66,6 +67,14 @@ class Header extends Component {
         <Nav>
           <NavItem className='left active'>首页</NavItem>
           <NavItem className='left'>下载App</NavItem>
+          {
+						login ? 
+							<NavItem onClick={logout} className='right'>退出</NavItem> : 
+							<Link to='/login'><NavItem className='right'>登陆</NavItem></Link>
+          }
+          <NavItem className='right'>
+            <i className="iconfont">&#xe636;</i>
+          </NavItem>
           <SearchWrapper>
             <CSSTransition
               in={focused}
@@ -82,10 +91,7 @@ class Header extends Component {
             <i className={focused? 'focused iconfont zoom' :'iconfont zoom'}>&#xe614;</i>
             {this.getListArea()}
           </SearchWrapper>
-          <NavItem className='right'>登陆</NavItem>
-          <NavItem className='right'>
-            <i className="iconfont">&#xe636;</i>
-          </NavItem>
+          
           <Addition>
             <Button className='writting'><i className="iconfont">&#xe615;</i>写文章</Button>
             <Button className='reg'>注册</Button>
@@ -102,7 +108,8 @@ const mapStateToProps = (state) => {
     mouseIn: state.getIn(['header','mouseIn']),
     page: state.getIn(['header','page']),
     totalPage: state.getIn(['header','totalPage']),
-    list: state.getIn(['header','list'])
+    list: state.getIn(['header','list']),
+    login: state.getIn(['login', 'login'])
   }
 }
 
@@ -135,7 +142,10 @@ const mapDispatchToProps = (dispatch) => {
       } else {
         dispatch(actionCreators.changePage(1))            
       }
-    }
+    },
+    logout() {
+			dispatch(loginActionCreators.logout())
+		}
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
