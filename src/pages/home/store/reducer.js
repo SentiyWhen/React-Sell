@@ -5,7 +5,8 @@ const defaultState = fromJS({
   topicList: [],
   articleList: [],
   recommendList: [],
-  articlePage: 1
+  articlePage: 1,
+  showScroll: false
 });
 
 const changeHomeData = (state, action) => {
@@ -28,7 +29,9 @@ export default (state = defaultState, action) => {
     case constants.CHANGE_HOME_DATA:
       return changeHomeData(state, action);
     case constants.ADD_ARTICLE_LIST:
-			return addArticleList(state, action);
+      return addArticleList(state, action);
+    case constants.TOGGLE_SCROLL_TOP:
+			return state.set('showScroll', action.show);
     default:
       return state;
   }
