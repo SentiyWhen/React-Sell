@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { DetailWrapper, Header, Content } from './style';
+import { actionCreators } from './store';
 
 class Detail extends Component {
   render() {
     return(
-      <div>
-        Detail
-      </div>
+      <DetailWrapper>
+        <Header>jaychou</Header>
+        <Content>
+        jaychou
+        </Content>
+      </DetailWrapper>
     )
   }
 }
