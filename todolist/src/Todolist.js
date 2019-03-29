@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Todoitem from './Todoitem'
 import './style.css'
 
 class Todolist extends Component {
@@ -43,10 +44,12 @@ class Todolist extends Component {
         <ul>
           {list.map((item,index)=>{
             return (
-              <li key={index} 
-                  onClick={this.handleDelClick.bind(this,index)}
-                  dangerouslySetInnerHTML = {{__html:item}}
-                  ></li>
+              <Todoitem 
+                key = {index}
+                content = {item}
+                index = {index}
+                callback = {this.handleDelClick.bind(this)}
+              />
             )
           })}
         </ul>
