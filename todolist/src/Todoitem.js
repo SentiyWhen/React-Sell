@@ -6,7 +6,8 @@ class Todoitem extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick(){
-    this.props.callback(this.props.index);
+    const {callback, index} = this.props;
+    callback(index);
   }
   render(){
     const {content} = this.props;

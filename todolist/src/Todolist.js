@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import Todoitem from './Todoitem'
-import './style.css'
+import Todoitem from './Todoitem';
+import './style.css';
 
 class Todolist extends Component {
   constructor(props){
@@ -9,23 +9,27 @@ class Todolist extends Component {
       value: '',
       list: []
     }
+    this.handleDelClick = this.handleDelClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleBtnClick = this.handleBtnClick.bind(this);
   }
-  handleChange(e){
-    this.setState({
-      value: e.target.value
-    })
+  handleInputChange(e){
+    let value = e.target.value;
+    this.setState(()=>({
+      value: value
+    }))
   }
-  handleClick(){
-    this.setState({
-      list: [...this.state.list,this.state.value],
+  handleBtnClick(){
+    this.setState((prevState)=>({
+      list: [...prevState.list,prevState.value],
       value: ''
-    })
+    }))
   }
   handleDelClick(index){
-    let list = [...this.state.list];
-    list.splice(index,1);
-    this.setState({
-      list:list
+    this.setState((prevState)=>{
+      let list = [...prevState.list];
+      list.splice(index,1);
+      return {list};
     })
   }
   render() {
@@ -38,9 +42,9 @@ class Todolist extends Component {
               id="input"
               className="input" 
               value={value} 
-              onChange={(e)=>this.handleChange(e)}
+              onChange={this.handleInputChange}
               ></input>
-        <button onClick={()=>this.handleClick()}>add</button>
+        <button onClick={this.handleBtnClick}>add</button>
         <ul>
           {list.map((item,index)=>{
             return (
@@ -48,7 +52,7 @@ class Todolist extends Component {
                 key = {index}
                 content = {item}
                 index = {index}
-                callback = {this.handleDelClick.bind(this)}
+                callback = {this.handleDelClick}
               />
             )
           })}
