@@ -13,16 +13,23 @@ class Todolist extends Component {
       value: e.target.value
     })
   }
+  handleClick(){
+    this.setState({
+      list: [...this.state.list,this.state.value],
+      value: ''
+    })
+  }
   render() {
+    const {value, list} = this.state;
     
     return (
       <Fragment>
-        <input value={this.state.value} onChange={this.handleChange.bind(this)}></input>
-        <button>add</button>
+        <input value={value} onChange={(e)=>this.handleChange(e)}></input>
+        <button onClick={()=>this.handleClick()}>add</button>
         <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
+          {list.map((item,index)=>{
+            return <li key={index}>{item}</li>
+          })}
         </ul>
       </Fragment>
     );
