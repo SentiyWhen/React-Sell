@@ -5,6 +5,8 @@ import './style.css';
 class Todolist extends Component {
   constructor(props){
     super(props);
+    //state&props发生变化 render会重新执行 渲染界面
+    //父组件的render执行时，子组件的render也会执行
     this.state = {
       value: '',
       list: []
@@ -23,7 +25,9 @@ class Todolist extends Component {
     this.setState((prevState)=>({
       list: [...prevState.list,prevState.value],
       value: ''
-    }))
+    }),()=>{
+      console.log(this.ul.querySelectorAll('li').length)
+    })
   }
   handleDelClick(index){
     this.setState((prevState)=>{
@@ -45,7 +49,7 @@ class Todolist extends Component {
               onChange={this.handleInputChange}
               ></input>
         <button onClick={this.handleBtnClick}>add</button>
-        <ul>
+        <ul ref={(ul)=>{this.ul = ul}}>
           {list.map((item,index)=>{
             return (
               <Todoitem 
