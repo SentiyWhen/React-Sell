@@ -9,11 +9,18 @@ class Todolist extends Component {
     //父组件的render执行时，子组件的render也会执行
     this.state = {
       value: '',
-      list: []
+      list: [],
+      show: true
     }
     this.handleDelClick = this.handleDelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
+    this.handleAnimationClick = this.handleAnimationClick.bind(this);
+  }
+  handleAnimationClick(){
+    this.setState(()=>({
+      show : this.state.show ? false : true
+    }))
   }
   handleInputChange(e){
     let value = e.target.value;
@@ -37,10 +44,13 @@ class Todolist extends Component {
     })
   }
   render() {
-    const {value, list} = this.state;
+    const {value, list, show} = this.state;
     
     return (
       <Fragment>
+        <div className={show? 'show' : 'hide'}>lai</div>
+        <button onClick={this.handleAnimationClick}>动画测试</button>
+        <br/>
         <label htmlFor="input">输入</label>
         <input 
               id="input"

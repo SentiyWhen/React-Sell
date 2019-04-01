@@ -5,7 +5,14 @@ import PropTypes from 'prop-types';
 class Todoitem extends Component {
   constructor(props){
     super(props)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    if (nextProps.content !== this.props.content) {
+      return true;
+    } else {
+      return false;
+    }
   }
   handleClick(){
     const {callback, index} = this.props;
