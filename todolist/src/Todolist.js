@@ -18,6 +18,11 @@ class Todolist extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
     this.handleAnimationClick = this.handleAnimationClick.bind(this);
+    this.storeChange = this.storeChange.bind(this);
+    store.subscribe(this.storeChange);
+  }
+  storeChange() {
+    this.setState(store.getState());
   }
   handleAnimationClick(){
     this.setState(()=>({
@@ -25,17 +30,20 @@ class Todolist extends Component {
     }))
   }
   handleInputChange(e){
-    let value = e.target.value;
-    this.setState(()=>({
-      value: value
-    }))
+    store.dispatch({
+      type: 'input_change',
+      value: e.target.value
+    })
   }
   handleBtnClick(){
-    this.setState((prevState)=>({
-      list: [...prevState.list,prevState.value],
-      value: ''
-    }),()=>{
-      console.log(this.ul.querySelectorAll('li').length)
+    // this.setState((prevState)=>({
+    //   list: [...prevState.list,prevState.value],
+    //   value: ''
+    // }),()=>{
+    //   console.log(this.ul.querySelectorAll('li').length)
+    // })
+    store.dispatch({
+      type: 'add_list'
     })
   }
   handleDelClick(index){
