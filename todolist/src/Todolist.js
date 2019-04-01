@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import Todoitem from './Todoitem';
 import './style.css';
+import store from './store'
 
 class Todolist extends Component {
   constructor(props){
     super(props);
     //state&props发生变化 render会重新执行 渲染界面
     //父组件的render执行时，子组件的render也会执行
-    this.state = {
-      value: '',
-      list: [],
-      show: true
-    }
+    // this.state = {
+    //   value: '',
+    //   list: [],
+    //   show: true
+    // }
+    this.state = store.getState();
     this.handleDelClick = this.handleDelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
