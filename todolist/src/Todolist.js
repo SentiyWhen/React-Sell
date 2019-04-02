@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { addListAction, delItemAction, inputChangeAction } from './store/actionCreators'
+import { addListAction, delItemAction, inputChangeAction, getAllListAction } from './store/actionCreators'
 import Todoitem from './Todoitem';
 import store from './store'
+import axios from 'axios'
 import './style.css';
 
 class Todolist extends Component {
@@ -16,6 +17,15 @@ class Todolist extends Component {
     this.handleAnimationClick = this.handleAnimationClick.bind(this);
     this.storeChange = this.storeChange.bind(this);
     store.subscribe(this.storeChange);
+  }
+  componentDidMount() {
+    axios.get('/api/home.json')
+      .then(function (res) {
+        store.dispatch(getAllListAction(res.data.data.list))
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
   storeChange() {
     this.setState(store.getState());
