@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import Todoitem from './Todoitem';
-import './style.css';
 import store from './store'
+import { ADD_LIST, DEL_ITEM, INPUT_CHANGE } from './store/actionType'
+import './style.css';
 
 class Todolist extends Component {
   constructor(props){
@@ -31,7 +32,7 @@ class Todolist extends Component {
   }
   handleInputChange(e){
     store.dispatch({
-      type: 'input_change',
+      type: INPUT_CHANGE,
       value: e.target.value
     })
   }
@@ -43,7 +44,7 @@ class Todolist extends Component {
     //   console.log(this.ul.querySelectorAll('li').length)
     // })
     store.dispatch({
-      type: 'add_list'
+      type: ADD_LIST
     })
   }
   handleDelClick(index){
@@ -53,7 +54,7 @@ class Todolist extends Component {
     //   return {list};
     // })
     store.dispatch({
-      type: 'del_item',
+      type: DEL_ITEM,
       index
     })
   }
