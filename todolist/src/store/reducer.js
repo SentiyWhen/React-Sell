@@ -15,6 +15,10 @@ export const reducerName = (state = defaultState, action) => {
       newState1.list.push(newState1.value);
       newState1.value = '';
       return newState1;
+    case 'del_item':
+      let newState2 = JSON.parse(JSON.stringify(state));
+      newState2.list.splice(action.index,1);
+      return newState2;
     default:
       
     return state

@@ -47,10 +47,14 @@ class Todolist extends Component {
     })
   }
   handleDelClick(index){
-    this.setState((prevState)=>{
-      let list = [...prevState.list];
-      list.splice(index,1);
-      return {list};
+    // this.setState((prevState)=>{
+    //   let list = [...prevState.list];
+    //   list.splice(index,1);
+    //   return {list};
+    // })
+    store.dispatch({
+      type: 'del_item',
+      index
     })
   }
   render() {
