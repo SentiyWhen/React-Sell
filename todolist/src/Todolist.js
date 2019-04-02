@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { addListAction, delItemAction, inputChangeAction } from './store/actionCreators'
 import Todoitem from './Todoitem';
 import store from './store'
-import { ADD_LIST, DEL_ITEM, INPUT_CHANGE } from './store/actionType'
 import './style.css';
 
 class Todolist extends Component {
@@ -9,11 +9,6 @@ class Todolist extends Component {
     super(props);
     //state&props发生变化 render会重新执行 渲染界面
     //父组件的render执行时，子组件的render也会执行
-    // this.state = {
-    //   value: '',
-    //   list: [],
-    //   show: true
-    // }
     this.state = store.getState();
     this.handleDelClick = this.handleDelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,32 +26,16 @@ class Todolist extends Component {
     }))
   }
   handleInputChange(e){
-    store.dispatch({
-      type: INPUT_CHANGE,
-      value: e.target.value
-    })
+    const action = inputChangeAction(e.target.value);
+    store.dispatch(action);
   }
   handleBtnClick(){
-    // this.setState((prevState)=>({
-    //   list: [...prevState.list,prevState.value],
-    //   value: ''
-    // }),()=>{
-    //   console.log(this.ul.querySelectorAll('li').length)
-    // })
-    store.dispatch({
-      type: ADD_LIST
-    })
+    const action = addListAction();
+    store.dispatch(action);
   }
   handleDelClick(index){
-    // this.setState((prevState)=>{
-    //   let list = [...prevState.list];
-    //   list.splice(index,1);
-    //   return {list};
-    // })
-    store.dispatch({
-      type: DEL_ITEM,
-      index
-    })
+    const action = delItemAction(index);
+    store.dispatch(action);
   }
   render() {
     const {value, list, show} = this.state;
