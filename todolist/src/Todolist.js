@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { addListAction, delItemAction, inputChangeAction, getAllListAction } from './store/actionCreators'
+import { getList, delItemAction, inputChangeAction, addListAction } from './store/actionCreators'
 import Todoitem from './Todoitem';
 import store from './store'
 import axios from 'axios'
@@ -19,13 +19,8 @@ class Todolist extends Component {
     store.subscribe(this.storeChange);
   }
   componentDidMount() {
-    axios.get('/api/home.json')
-      .then(function (res) {
-        store.dispatch(getAllListAction(res.data.data.list))
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const action = getList();
+    store.dispatch(action);
   }
   storeChange() {
     this.setState(store.getState());
