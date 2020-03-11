@@ -1,6 +1,6 @@
 export default {
   '/api/goods': {
-    "errno": 0,
+    "code": 200,
     "data": [
         {
             "name": "热销榜",
@@ -1079,7 +1079,7 @@ export default {
     ]
   },
   '/api/seller': {
-    "errno": 0,
+    "code": 200,
     "data": {
         "name": "粥品香坊（回龙观）",
         "description": "蜂鸟专送",
@@ -1131,7 +1131,7 @@ export default {
     }
   },
   '/api/ratings': {
-    "errno": 0,
+    "code": 200,
     "data": [
         {
             "username": "3******c",

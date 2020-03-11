@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './ratings.less';
+// import styles from './ratings.less';
 
 function Ratings() {
   return (
