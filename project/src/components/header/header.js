@@ -5,9 +5,6 @@ import classnames from "classnames";
 function Header(data) {
   const { seller } = data;
   const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
-  // if (seller.supports) {
-  //   console.log(classMap[`${seller.supports[0].type}`]);
-  // }
 
   return (
     <div className={styles.header}>
@@ -25,11 +22,17 @@ function Header(data) {
           </div>
           { seller.supports ?
           <div className={styles.support}>
-            <span className={classnames(styles.icon,styles.decrease)}></span>
+            <span className={classnames(styles.icon,styles[classMap[seller.supports[0].type]])}></span>
             <span className={styles.text}>{seller.supports[0].description}</span>
           </div>
           : null }
         </div>
+        { seller.supports ?
+        <div className={styles.support_count}>
+          <span className={styles.count}>{seller.supports.length}个</span>
+          <i className="icon-keyboard_arrow_right"></i>
+        </div>
+        : null }
       </div>
       <div className={styles.bulletin_wrapper}>
 

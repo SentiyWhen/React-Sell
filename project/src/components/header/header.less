@@ -1,9 +1,11 @@
 @import "../../assets/styles/mixin.less";
 
 .header {
+  position: relative;
   color: #fff;
   background: rgba(7, 17, 27, 0.5);
   .content_wrapper {
+    position: relative;
     padding: 24px 12px 18px 24px;
     font-size: 0;
     .avatar {
@@ -25,7 +27,7 @@
           vertical-align: top;
           width: 30px;
           height: 18px;
-          .bg_image('./brand');
+          .bg_image('./image/brand');
           background-size: 30px 18px;
           background-repeat: no-repeat;
         }
@@ -51,19 +53,19 @@
           background-size: 12px 12px;
           background-repeat: no-repeat;
           &.decrease {
-            .bg_image('./decrease_1');
+            .bg_image('./image/decrease_1');
           }
           &.discount {
-            .bg_image('./discount_1');
+            .bg_image('./image/discount_1');
           }
           &.guarantee {
-            .bg_image('./guarantee_1');
+            .bg_image('./image/guarantee_1');
           }
           &.invoice {
-            .bg_image('./invoice_1');
+            .bg_image('./image/invoice_1');
           }
           &.special {
-            .bg_image('./special_1');
+            .bg_image('./image/special_1');
           }
         }
         .text {
@@ -71,6 +73,28 @@
           font-size: 10px;
         }
 
+      }
+    }
+    .support_count {
+      position: absolute;
+      right: 12px;
+      bottom: 14px;
+      padding: 0 8px;
+      height: 24px;
+      line-height: 24px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.2);
+      text-align: center;
+      .count {
+        vertical-align: top;
+        font-size: 10px;
+      }
+      :global {
+        .icon-keyboard_arrow_right {
+          margin-left: 2px;
+          line-height: 24px;
+          font-size: 10px;
+        }
       }
     }
 
