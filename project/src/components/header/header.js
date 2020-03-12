@@ -52,6 +52,11 @@ function Header(data) {
             <div className={styles.star_wrapper}>
               <Star size={48} score={seller.score}/>
             </div>
+            <div className={styles.title}>
+              <div className={styles.line}></div>
+              <div className={styles.text}>优惠信息</div>
+              <div className={styles.line}></div>
+            </div>
           </div>
         </div>
         <div className={styles.detail_close} onClick={()=>setdetailShow(!detailShow)}>
