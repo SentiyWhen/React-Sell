@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from './header.less';
 import classnames from "classnames";
+// import { CSSTransition } from 'react-transition-group';
 import Star from "../star/star";
 
 function Header(data) {
@@ -44,6 +45,19 @@ function Header(data) {
       <div className={styles.background}>
         <img alt="" src={seller.avatar}></img>
       </div>
+      {/* <CSSTransition
+            in={detailShow} // 如果this.state.show从false变为true，则动画入场，反之out出场
+            timeout={1000} //动画执行1秒
+            classNames='fade' //自定义的class名
+            unMountOnExit //可选，当动画出场后在页面上移除包裹的dom节点
+            onEntered={(el) => {
+              // el.style.color='blue'   //可选，动画入场之后的回调，el指被包裹的dom，让div内的字体颜色等于蓝色
+            }}
+            onExited={() => {
+              //同理，动画出场之后的回调，也可以在这里来个setState啥的操作
+            }}
+            
+      > */}
       {detailShow && 
       <div className={styles.detail}>
         <div className={classnames(styles.detail_wrapper,'clearfix')}>
@@ -84,6 +98,7 @@ function Header(data) {
         </div>
       </div>
       }
+      {/* </CSSTransition> */}
     </div>
   );
 }
