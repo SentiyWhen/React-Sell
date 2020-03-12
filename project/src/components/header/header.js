@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from './header.less';
 import classnames from "classnames";
+import Star from "../star/star";
 
 function Header(data) {
   const { seller } = data;
@@ -47,10 +48,13 @@ function Header(data) {
       <div className={styles.detail}>
         <div className={classnames(styles.detail_wrapper,'clearfix')}>
           <div className={styles.detail_main}>
-            <p>{seller.bulletin}</p>
+            <h1 className={styles.name}>{seller.name}</h1>
+            <div className={styles.star_wrapper}>
+              <Star size={48} score={seller.score}/>
+            </div>
           </div>
         </div>
-        <div className={styles.detail_close}>
+        <div className={styles.detail_close} onClick={()=>setdetailShow(!detailShow)}>
           <i className="icon-close"></i>
         </div>
       </div>
