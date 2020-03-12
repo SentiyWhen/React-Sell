@@ -57,6 +57,26 @@ function Header(data) {
               <div className={styles.text}>优惠信息</div>
               <div className={styles.line}></div>
             </div>
+            { seller.supports &&  
+            <ul className={styles.support}>
+              {seller.supports.map((item,index)=>{
+                return (
+                  <li key={index} className={styles['support-item']}>
+                    <span className={classnames(styles.icon,styles[classMap[item.type]])} ></span>
+                    <span className={styles.text}>{seller.supports[index].description}</span>
+                  </li>
+                )
+              })}
+            </ul>
+            }
+            <div className={styles.title}>
+              <div className={styles.line}></div>
+              <div className={styles.text}>商家公告</div>
+              <div className={styles.line}></div>
+            </div>
+            <div className={styles.bulletin}>
+              <p className={styles.content}>{seller.bulletin}</p>
+            </div>
           </div>
         </div>
         <div className={styles.detail_close} onClick={()=>setdetailShow(!detailShow)}>
