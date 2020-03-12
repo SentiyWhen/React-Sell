@@ -35,7 +35,12 @@ function Header(data) {
         : null }
       </div>
       <div className={styles.bulletin_wrapper}>
-
+        <span className={styles.bulletin_title}></span>
+        <span className={styles.bulletin_text}>{seller.bulletin}</span>
+        <i className="icon-keyboard_arrow_right"></i>
+      </div>
+      <div className={styles.background}>
+        <img alt="" src={seller.avatar}></img>
       </div>
     </div>
   );
