@@ -29,6 +29,41 @@ function Goods({ common }) {
         }
       </div>
       <div className={styles['foods-wrapper']}>
+        <ul>
+          {goods.map((item,index)=>{
+            return (
+              <li key={index}>
+                <h1 className={styles.title}>{item.name}</h1>
+                <ul>
+                  {item.foods.map((food,f_index)=>{
+                    return (
+                      <li key={f_index} className={styles['food-item']}>
+                        <div className={styles.icon}>
+                          <img alt="" style={{width:57,height:57}} src={food.icon}></img>
+                        </div>
+                        <div className={styles.content}>
+                          <h2 className={styles.name}>{food.name}</h2>
+                          <p className={styles.desc}>{food.description}</p>
+                          <div className={styles.extra}>
+                            <span className={styles.count}>月售{food.sellCount}份</span>
+                            <span>好评率{food.rating}%</span>
+                          </div>
+                          <div className={styles.price}>
+                            <span className={styles.now}>￥{food.price}</span>
+                            {food.oldPrice &&
+                            <span className={styles.old}>￥{food.oldPrice}</span>
+                            }
+                          </div>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </li>
+              
+            )
+          })}
+        </ul>
       </div>
     </div>
   );
