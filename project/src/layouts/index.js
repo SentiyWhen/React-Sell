@@ -13,7 +13,8 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    this.props.dispatch({ type: 'common/getSeller'})
+    this.props.dispatch({ type: 'common/getSeller'});
+    this.props.dispatch({ type: 'common/getGoods'});
   }
   setActiveType(activeType){
     this.setState({

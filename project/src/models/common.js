@@ -1,8 +1,9 @@
-import { getSeller } from "../services/common";
+import { getSeller, getGoods } from "../services/common";
 export default {
   namespace: 'common',
   state: {
-    seller: {}
+    seller: [],
+    goods: [],
   },
   subscriptions: {
     setup({ history, dispatch }) {
@@ -19,6 +20,18 @@ export default {
           type: 'updateState',
           payload: {
             seller: data
+          }
+        })
+      }
+    },
+    *getGoods({ payload }, { call, put }) {
+      const res = yield call(getGoods);
+      const { code, data } = res;
+      if (code === 200) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            goods: data
           }
         })
       }
