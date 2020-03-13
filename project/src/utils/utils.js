@@ -1,5 +1,19 @@
-// 日期格式化
+//防抖函数
+const debounce = (func, delay) => {
+  let timer;
+  return function (...args) {
+    if(timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args);
+      clearTimeout(timer);
+    }, delay);
+  };
+};
+export { debounce };
 
+// 日期格式化
 export function formatDate(time) {
   function addZero(num) {
     if (num < 10) return '0' + num;

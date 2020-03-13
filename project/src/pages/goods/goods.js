@@ -2,15 +2,35 @@ import React, { useState, useEffect } from "react";
 import styles from './goods.less';
 import { connect } from 'dva';
 import classnames from "classnames";
+import BScroll from "better-scroll";
 
 function Goods({ common }) {
   const { goods } = common;
   const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+  const [meunScroll, setMeunScroll] = useState(null);
+  const [foodsScroll, setFoodsScroll] = useState(null);
 
+  useEffect(() => {
+    setTimeout(() => {
+      _initScroll();
+    }, 0);
+    return () => {
+    };
+  }, [])
+  function _initScroll() {
+    const scrollM = new BScroll(document.querySelector("#menu-wrapper"), {
+      click: true
+    });
+    setMeunScroll(scrollM);
+    const scrollF = new BScroll(document.querySelector("#foods-wrapper"), {
+      click: true
+    });
+    setFoodsScroll(scrollF);
+  }
   
   return (
     <div className={styles.goods}>
-      <div className={styles['menu-wrapper']}>
+      <div className={styles['menu-wrapper']} id="menu-wrapper">
         { goods &&
         <ul>
           {goods.map((item,index)=>{
@@ -28,7 +48,7 @@ function Goods({ common }) {
         </ul>
         }
       </div>
-      <div className={styles['foods-wrapper']}>
+      <div className={styles['foods-wrapper']} id="foods-wrapper">
         <ul>
           {goods.map((item,index)=>{
             return (
