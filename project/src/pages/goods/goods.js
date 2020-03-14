@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from './goods.less';
 import { connect } from 'dva';
 import classnames from "classnames";
@@ -7,35 +7,78 @@ import BScroll from "better-scroll";
 function Goods({ common }) {
   const { goods } = common;
   const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+  const foodListRef = useRef();
+  const menuListRef = useRef();
   const [meunScroll, setMeunScroll] = useState(null);
   const [foodsScroll, setFoodsScroll] = useState(null);
-
+  const [scrollY, setScrollY] = useState(0);
+  const [listHeight, setListHeight] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   useEffect(() => {
-    setTimeout(() => {
-      _initScroll();
-    }, 0);
-    return () => {
-    };
-  }, [])
-  function _initScroll() {
     const scrollM = new BScroll(document.querySelector("#menu-wrapper"), {
       click: true
     });
     setMeunScroll(scrollM);
+
     const scrollF = new BScroll(document.querySelector("#foods-wrapper"), {
-      click: true
+      click: true,
+      probeType: 3,
     });
     setFoodsScroll(scrollF);
+    scrollF.on('scroll', (pos) => {
+      setScrollY(Math.abs(Math.round(pos.y)));
+    })
+
+    let foodList = foodListRef.current.children;
+    let height = 0;
+    let listHeight = [];
+    listHeight.push(height);
+    for (let i = 0; i < foodList.length; i++) {
+      let item = foodList[i];
+      height += item.clientHeight;
+      listHeight.push(height);
+    }
+    setListHeight(listHeight);
+    return () => {
+    };
+  }, [])
+  
+  useEffect(() => {
+    for (let i = 0; i < listHeight.length; i++) {
+      let height1 = listHeight[i];
+      let height2 = listHeight[i + 1];
+      if (!height2 || (scrollY >= height1 && scrollY < height2)) {
+        let menuList = menuListRef.current.children;
+        let el = menuList[i];
+        meunScroll.scrollToElement(el, 300, 0, -100);
+        setCurrentIndex(i);
+        return;
+      }
+    }
+    setCurrentIndex(0);
+    return () => {
+    };
+  }, [listHeight, meunScroll, scrollY])
+
+  function selectMenu(index) {
+    setCurrentIndex(index);
+    let foodList = foodListRef.current.children;
+    let el = foodList[index];
+    foodsScroll.scrollToElement(el, 300);
   }
   
   return (
     <div className={styles.goods}>
       <div className={styles['menu-wrapper']} id="menu-wrapper">
         { goods &&
-        <ul>
+        <ul ref={menuListRef}>
           {goods.map((item,index)=>{
             return (
-              <li key={index} className={styles['menu-item']}>
+              <li key={index} 
+                  className={classnames(styles['menu-item'],currentIndex===index && styles.current)} 
+                  onClick={() => selectMenu(index)}
+              >
                 <span className={classnames(styles.text,'border_1px')}>
                   { item.type>0 && 
                     <span className={classnames(styles.icon,styles[classMap[item.type]])}></span>
@@ -49,7 +92,7 @@ function Goods({ common }) {
         }
       </div>
       <div className={styles['foods-wrapper']} id="foods-wrapper">
-        <ul>
+        <ul ref={foodListRef}>
           {goods.map((item,index)=>{
             return (
               <li key={index}>
