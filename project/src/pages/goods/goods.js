@@ -15,6 +15,16 @@ function Goods({ common }) {
   const [scrollY, setScrollY] = useState(0);
   const [listHeight, setListHeight] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const selectFoods = [
+    {
+      price: 10,
+      count: 1
+    },
+    {
+      price: 4,
+      count: 2
+    },
+  ];
   
   useEffect(() => {
     const scrollM = new BScroll(document.querySelector("#menu-wrapper"), {
@@ -128,7 +138,7 @@ function Goods({ common }) {
           })}
         </ul>
       </div>
-      <Shopcart deliveryPrice={seller.deliveryPrice} minPrice={seller.minPrice}/>
+      <Shopcart selectFoods={selectFoods} deliveryPrice={seller.deliveryPrice} minPrice={seller.minPrice}/>
     </div>
   );
 }
