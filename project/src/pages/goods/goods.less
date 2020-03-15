@@ -24,7 +24,7 @@
         background: #fff;
         font-weight: 700;
         .text {
-          .border_none();
+          .border_none;
         }
       }
       .icon {
@@ -76,6 +76,10 @@
       margin: 18px;
       padding-bottom: 18px;
       .border_1px(rgba(7, 17, 27, 0.1));
+      &:last-child {
+        .border_none;
+        margin-bottom: 0;
+      }
       .icon {
         flex: 0 0 57px;
         margin-right: 10px;

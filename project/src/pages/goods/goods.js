@@ -3,9 +3,10 @@ import styles from './goods.less';
 import { connect } from 'dva';
 import classnames from "classnames";
 import BScroll from "better-scroll";
+import Shopcart from "../../components/shopcart/shopcart";
 
 function Goods({ common }) {
-  const { goods } = common;
+  const { goods, seller } = common;
   const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
   const foodListRef = useRef();
   const menuListRef = useRef();
@@ -123,11 +124,11 @@ function Goods({ common }) {
                   })}
                 </ul>
               </li>
-              
             )
           })}
         </ul>
       </div>
+      <Shopcart deliveryPrice={seller.deliveryPrice} minPrice={seller.minPrice}/>
     </div>
   );
 }
