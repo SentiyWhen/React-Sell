@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import classnames from "classnames";
 import BScroll from "better-scroll";
 import Shopcart from "../../components/shopcart/shopcart";
+import Cartcontrol from "../../components/cartcontrol/cartcontrol";
 
 function Goods({ common }) {
   const { goods, seller } = common;
@@ -127,6 +128,9 @@ function Goods({ common }) {
                             {food.oldPrice &&
                             <span className={styles.old}>￥{food.oldPrice}</span>
                             }
+                          </div>
+                          <div className={styles["cartcontrol-wrapper"]}>
+                            <Cartcontrol food={food}/>
                           </div>
                         </div>
                       </li>
