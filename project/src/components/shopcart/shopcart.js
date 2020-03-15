@@ -12,6 +12,7 @@ function Shopcart({ deliveryPrice,minPrice }) {
             <div className={styles.logo}>
               <i className="icon-shopping_cart"></i>
             </div>
+            <div className={styles.num}>1</div>
           </div>
           <div className={styles.price}>¥0</div>
           <div className={styles.desc}>另需配送费¥{deliveryPrice}</div>
