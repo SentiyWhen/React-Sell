@@ -7,7 +7,9 @@ import Shopcart from "../../components/shopcart/shopcart";
 import Cartcontrol from "../../components/cartcontrol/cartcontrol";
 
 function Goods({ common }) {
-  const { goods, seller } = common;
+  const { goods, seller, selectFoods } = common;
+  // console.log(selectFoods);
+  
   const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
   const foodListRef = useRef();
   const menuListRef = useRef();
@@ -16,16 +18,6 @@ function Goods({ common }) {
   const [scrollY, setScrollY] = useState(0);
   const [listHeight, setListHeight] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const selectFoods = [
-    {
-      price: 10,
-      count: 1
-    },
-    {
-      price: 4,
-      count: 2
-    },
-  ];
   
   useEffect(() => {
     const scrollM = new BScroll(document.querySelector("#menu-wrapper"), {
@@ -130,7 +122,7 @@ function Goods({ common }) {
                             }
                           </div>
                           <div className={styles["cartcontrol-wrapper"]}>
-                            <Cartcontrol food={food}/>
+                            <Cartcontrol index={index} f_index={f_index}/>
                           </div>
                         </div>
                       </li>
@@ -142,7 +134,7 @@ function Goods({ common }) {
           })}
         </ul>
       </div>
-      <Shopcart selectFoods={selectFoods} deliveryPrice={seller.deliveryPrice} minPrice={seller.minPrice}/>
+      <Shopcart deliveryPrice={seller.deliveryPrice} minPrice={seller.minPrice}/>
     </div>
   );
 }

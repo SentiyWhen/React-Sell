@@ -1,35 +1,83 @@
 import React, { useState, useEffect} from "react";
 import styles from './cartcontrol.less';
 import classnames from "classnames";
+import { connect } from 'dva';
 
-function Cartcontrol({ food }) {
-  const [count, setCount] = useState(0);
-
+function Cartcontrol({ index, f_index, common, dispatch }) {
+  
+  const { goods } = common;
+  
   function addCart() {
-    if (count === 0) {
-      setCount(1);
+    let tmp = goods;
+    if (tmp[index].foods[f_index].count === 0) {
+      tmp[index].foods[f_index].count = 1;
     } else {
-      setCount(count +1);
+      tmp[index].foods[f_index].count += 1;
     }
+    
+    let foods = [];
+    tmp.forEach((good) => {
+      good.foods.forEach((food) => {
+        if (food.count) {
+          foods.push(food);
+        }
+      });
+    });
+    // console.log('foods:',foods);
+    dispatch({
+      type: 'common/updateState',
+      paylod: {
+        // goods: tmp,
+        test: 'nima',
+        // selectFoods: foods,
+      }
+    })
+    // dispatch({
+    //   type: 'common/updateState',
+    //   paylod: {
+    //     selectFoods: foods,
+    //   }
+    // })
   }
   function decreaseCart() {
-    if (count !== 0) {
-      setCount(count -1);
+    let tmp = goods;
+    if (tmp[index].foods[f_index].count !== 0) {
+      tmp[index].foods[f_index].count -= 1;
     }
+    dispatch({
+      type: 'common/updateState',
+      paylod: {
+        goods: tmp,
+      }
+    })
+    let foods = [];
+    goods.forEach((good) => {
+      good.foods.forEach((food) => {
+        if (food.count) {
+          foods.push(food);
+        }
+      });
+    });    
+    dispatch({
+      type: 'common/updateState',
+      paylod: {
+        selectFoods: foods,
+      }
+    })
   }
   return (
     <div className={styles.cartcontrol}>
-      {count > 0 && 
+      {goods[index].foods[f_index].count > 0 && 
       <>
       <div className={styles["cart-decrease"]}onClick={()=>decreaseCart()}>
         <span className={classnames(styles.inner,'icon-remove_circle_outline')}></span>
       </div>
-      <div className={styles["cart-count"]}>{count}</div>
+      <div className={styles["cart-count"]}>{goods[index].foods[f_index].count}</div>
       </>
       }
-      <div className={classnames(styles["cart-add"],'icon-add_circle')} onClick={()=>addCart()}></div>
+      <div className={classnames(styles["cart-add"],'icon-add_circle')} onClick={addCart}></div>
     </div>
   );
 }
 
-export default Cartcontrol;
+export default connect(common => common)(Cartcontrol);

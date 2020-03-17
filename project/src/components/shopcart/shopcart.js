@@ -1,34 +1,37 @@
 import React, { useState, useEffect} from "react";
+import { connect } from "dva";
 import styles from './shopcart.less';
 import classnames from "classnames";
 
-function Shopcart({ selectFoods, deliveryPrice, minPrice }) {
+function Shopcart({ deliveryPrice, minPrice, common }) {
+  console.log('selectFoods:',common);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [payDesc, setPayDesc] = useState('');
 
-  useEffect(() => {
-    let total = 0;
-    let count = 0;
-    let desc = '';
-    selectFoods.forEach((food) => {
-      total += food.price * food.count;
-      count += food.count;
-    });
-    if (total === 0) {
-      return `￥${minPrice}元起送`;
-    } else if (total < minPrice) {
-      let diff = minPrice - total;
-      desc = `还差￥${diff}元起送`;
-    } else {
-      desc = '去结算';
-    }
-    setTotalPrice(total);
-    setTotalCount(count);
-    setPayDesc(desc);
-    return () => {
-    };
-  }, [minPrice, selectFoods])
+  // useEffect(() => {
+  //   let selectFoods = [];
+  //   let total = 0;
+  //   let count = 0;
+  //   let desc = '';
+  //   selectFoods.forEach((food) => {
+  //     total += food.price * food.count;
+  //     count += food.count;
+  //   });
+  //   if (total === 0) {
+  //     desc = `￥${minPrice}元起送`;
+  //   } else if (total < minPrice) {
+  //     let diff = minPrice - total;
+  //     desc = `还差￥${diff}元起送`;
+  //   } else {
+  //     desc = '去结算';
+  //   }
+  //   setTotalPrice(total);
+  //   setTotalCount(count);
+  //   setPayDesc(desc);
+  //   return () => {
+  //   };
+  // }, [minPrice])
 
   
 
@@ -56,4 +59,4 @@ function Shopcart({ selectFoods, deliveryPrice, minPrice }) {
   );
 }
 
-export default Shopcart;
+export default connect(common => common)(Shopcart);

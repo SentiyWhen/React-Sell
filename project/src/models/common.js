@@ -4,6 +4,8 @@ export default {
   state: {
     seller: [],
     goods: [],
+    selectFoods: [],
+    test: 'test',
   },
   subscriptions: {
     setup({ history, dispatch }) {
@@ -27,6 +29,11 @@ export default {
     *getGoods({ payload }, { call, put }) {
       const res = yield call(getGoods);
       const { code, data } = res;
+      data.forEach(item => {
+        item.foods.forEach(food => {
+          food.count = 0;
+        });
+      });
       if (code === 200) {
         yield put({
           type: 'updateState',
